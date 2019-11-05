@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#092031"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登陆"
+        android:textColor="@color/colorWhite"
+        android:textSize="30sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50sp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="50dp">
+
+        <ImageView
+            android:id="@+id/head_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/d4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50dp"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/login_change"
+            android:layout_toRightOf="@+id/head_image"
+            android:layout_above="@+id/email_edit" />
+
+        <EditText
+            android:id="@+id/email_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/head_image"
+            android:background="@drawable/login_edit"
+            android:hint="Email"
+            android:maxLines="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="30dp"/>
+
+        <EditText
+            android:id="@+id/password_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/email_edit"
+            android:background="@drawable/login_edit"
+            android:hint="Password"
+            android:maxLines="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/forget_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password_edit"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp"
+            android:hint="忘记密码？" />
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/forget_text"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/login_button"
+            android:text="登陆"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:id="@+id/new_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="15sp"
+            android:hint="新用户？点击这里注册" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

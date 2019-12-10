@@ -12,4 +12,13 @@
         <item name="android:fontFamily">@font/newfont</item>
     </style>
 
+    <style name="NewFont.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="NewFont.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="NewFont.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

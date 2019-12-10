@@ -1,4 +1,4 @@
-package com.example.a123;
+package com.example.a123.myActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.a123.R;
 
 import java.io.File;
 

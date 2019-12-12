@@ -14,7 +14,7 @@
             android:title="@string/menu_search" />
         <item
             android:id="@+id/nav_like"
-            android:icon="@android:drawable/ic_menu_compass"
+            android:icon="@mipmap/like"
             android:title="@string/menu_like" />
         <item
             android:id="@+id/nav_tool"

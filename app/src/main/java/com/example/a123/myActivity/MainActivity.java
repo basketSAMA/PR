@@ -1,6 +1,5 @@
 package com.example.a123.myActivity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -27,7 +26,7 @@ import com.example.a123.R;
 
 import java.io.File;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private Uri imageUri;
     private static final int TAKE_PHOTO = 1;
@@ -49,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button start = (Button) findViewById(R.id.start);
         start.setOnClickListener(this);
+
+        ImageView back = (ImageView) findViewById(R.id.title_back);
+        back.setOnClickListener(this);
     }
 
     @Override
@@ -80,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.start:
+                break;
+            case R.id.title_back:
+                Intent intent1 = new Intent(MainActivity.this, FamilyActivity.class);
+                startActivity(intent1);
                 break;
             default:
                 break;

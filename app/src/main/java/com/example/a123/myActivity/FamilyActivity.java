@@ -92,8 +92,8 @@ public class FamilyActivity extends BaseActivity {
             @Override
             public void onClick(int position) {
                 //点击事件
-//                Intent intent = new Intent(FamilyActivity.this, GeneraActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(FamilyActivity.this, GeneraActivity.class);
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(familyAdapter);

@@ -14,9 +14,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NewFont">
+        <activity android:name=".myActivity.GeneraActivity"/>
         <activity android:name=".myActivity.MineActivity" />
         <activity android:name=".myActivity.RegisterActivity" />
-        <activity android:name=".myActivity.FamilyActivity" />
+        <activity android:name=".myActivity.FamilyActivity" android:launchMode="singleTask"/>
         <activity android:name=".myActivity.LoginActivity" />
         <activity android:name=".myActivity.WelcomeActivity">
             <intent-filter>
@@ -26,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".myActivity.MainActivity" />
+        <activity android:name=".myActivity.MainActivity" android:launchMode="singleTop"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

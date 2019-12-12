@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorGray">
-
-    <Button
-        android:id="@+id/title_back"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:text="＜"
-        android:background="@color/colorTransparent"
-        android:textSize="20dp" />
+    android:id="@+id/title_ll"
+    android:orientation="horizontal"
+    android:background="@color/colorWhite">
 
     <ImageView
-    android:layout_width="0dp"
-    android:layout_height="match_parent"
-    android:src="@drawable/m3"
-    android:layout_gravity="center"
-    android:layout_weight="1"
-    android:gravity="center" />
+        android:id="@+id/title_back"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@mipmap/back"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:background="@drawable/k1" />
 
-    <Button
-        android:id="@+id/title_question"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:text="?"
-        android:background="@color/colorTransparent"
-        android:textSize="20dp" />
+    <TextView
+        android:id="@+id/title_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/title_text_size"
+        android:gravity="center"
+        android:layout_marginRight="50dp" />
 
 </LinearLayout>

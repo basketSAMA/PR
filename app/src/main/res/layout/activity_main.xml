@@ -15,6 +15,8 @@
         android:layout_weight="5"
         android:background="@color/colorWhite">
 
+        <include layout="@layout/title" />
+
         <ImageView
             android:id="@+id/show"
             android:alpha="0.5"

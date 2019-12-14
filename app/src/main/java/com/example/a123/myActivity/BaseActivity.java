@@ -1,7 +1,9 @@
 package com.example.a123.myActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -18,6 +20,11 @@ public class BaseActivity extends AppCompatActivity {
         Log.d("BaseActivity: onCreate",getClass().getSimpleName());
         Log.d("BaseActivity: Address",this.toString());
         ActivityCollector.addActivity(this);
+    }
+
+    //标题的返回事件
+    public void titleBack(View view) {
+        ((Activity) view.getContext()).finish();
     }
 
     @Override

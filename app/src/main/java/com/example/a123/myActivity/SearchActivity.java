@@ -1,6 +1,5 @@
 package com.example.a123.myActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +11,7 @@ import com.example.a123.myClass.Genera;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GeneraActivity extends BaseActivity {
+public class SearchActivity extends BaseActivity {
 
     private List<Genera> generaList;
     private RecyclerView recyclerView;
@@ -21,7 +20,7 @@ public class GeneraActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_genera);
+        setContentView(R.layout.activity_search);
 
         recyclerView = (RecyclerView) findViewById(R.id.rv);
 
@@ -33,13 +32,6 @@ public class GeneraActivity extends BaseActivity {
         generaList.add(new Genera("十万错", true, R.drawable.asystasia_chelonoides));
         generaList.add(new Genera("白鹤灵芝", false, R.drawable.bhlz));
         generaList.add(new Genera("高良姜", false, R.drawable.glj));
-        generaList.add(new Genera("珊瑚花", true, R.drawable.shh));
-        generaList.add(new Genera("鹿角藤", true, R.drawable.ljt));
-        generaList.add(new Genera("鹭鸶草", false, R.drawable.lsc));
-        generaList.add(new Genera("马利筋", false, R.drawable.mlj));
-        generaList.add(new Genera("银带虾脊兰", true, R.drawable.ydxjl));
-        generaList.add(new Genera("水衰衣", false, R.drawable.ssy));
-        generaList.add(new Genera("长萼素馨", true, R.drawable.cesx));
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
@@ -48,8 +40,6 @@ public class GeneraActivity extends BaseActivity {
             @Override
             public void onClick(int position) {
                 //点击事件
-                Intent intent = new Intent(GeneraActivity.this, PlantActivity.class);
-                startActivity(intent);
             }
         });
         recyclerView.setAdapter(generaAdapter);

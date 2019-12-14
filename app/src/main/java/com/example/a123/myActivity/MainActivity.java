@@ -48,9 +48,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         Button start = (Button) findViewById(R.id.start);
         start.setOnClickListener(this);
-
-        ImageView back = (ImageView) findViewById(R.id.title_back);
-        back.setOnClickListener(this);
     }
 
     @Override
@@ -82,10 +79,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
                 break;
             case R.id.start:
-                break;
-            case R.id.title_back:
-                Intent intent1 = new Intent(MainActivity.this, FamilyActivity.class);
-                startActivity(intent1);
                 break;
             default:
                 break;

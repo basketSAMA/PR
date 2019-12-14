@@ -52,10 +52,12 @@ public class FamilyActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
                     case R.id.nav_recognize:
-                        Intent intent = new Intent(FamilyActivity.this, MainActivity.class);
-                        startActivity(intent);
+                        Intent intent1 = new Intent(FamilyActivity.this, MainActivity.class);
+                        startActivity(intent1);
                         break;
                     case R.id.nav_search:
+                        Intent intent2 = new Intent(FamilyActivity.this, SearchActivity.class);
+                        startActivity(intent2);
                         break;
                     case R.id.nav_like:
                         break;

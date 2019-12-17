@@ -1,9 +1,14 @@
 package com.example.a123.myActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,12 +19,21 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.a123.R;
 import com.example.a123.myClass.Family;
+import com.example.a123.myClass.Plant;
+import com.example.a123.myClass.User;
+import com.example.a123.myService.LikeService;
+import com.example.a123.myService.LoginService;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FamilyActivity extends BaseActivity {
+
+    public static List<Plant> userLikeList;
+    public static User user;
 
     private List<Family> familyList;
     private RecyclerView recyclerView;
@@ -28,17 +42,42 @@ public class FamilyActivity extends BaseActivity {
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private View familyHeader;
+
+    private CircleImageView userImage;
+    private TextView userName;
+    private TextView userEmail;
+
+    private MyHandler myHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_family);
 
-        recyclerView = (RecyclerView) findViewById(R.id.rv);
+        final String email = getIntent().getStringExtra("email");
 
         toolbar = findViewById(R.id.toolbar);
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+
+        familyHeader = navigationView.inflateHeaderView(R.layout.nav_header_family);
+        userImage = familyHeader.findViewById(R.id.nav_user_image);
+        userName = familyHeader.findViewById(R.id.nav_name);
+        userEmail = familyHeader.findViewById(R.id.nav_email);
+
+        myHandler = new MyHandler();
+
+        recyclerView = findViewById(R.id.rv);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                user = LoginService.getUserInfo(email, FamilyActivity.this);
+                userLikeList = LikeService.getLike(email, FamilyActivity.this);
+                myHandler.obtainMessage(1).sendToTarget();
+            }
+        }).start();
 
         setSupportActionBar(toolbar);
 
@@ -60,14 +99,19 @@ public class FamilyActivity extends BaseActivity {
                         startActivity(intent2);
                         break;
                     case R.id.nav_like:
+                        Intent intent3 = new Intent(FamilyActivity.this, LikeActivity.class);
+                        startActivity(intent3);
+                        break;
+                    case R.id.nav_guess:
+                        Intent intent4 = new Intent(FamilyActivity.this, GuessActivity.class);
+                        startActivity(intent4);
                         break;
                     case R.id.nav_tool:
                         break;
-                    case R.id.nav_contact:
-                        break;
                     case R.id.nav_share:
                         break;
-                    case R.id.nav_back:
+                    case R.id.nav_exit:
+                        finish();
                         break;
                 }
                 menuItem.setCheckable(false);
@@ -94,14 +138,34 @@ public class FamilyActivity extends BaseActivity {
             @Override
             public void onClick(int position) {
                 //点击事件
-                Intent intent = new Intent(FamilyActivity.this, GeneraActivity.class);
+                Intent intent = new Intent(FamilyActivity.this, PlantListActivity.class);
                 startActivity(intent);
             }
         });
         recyclerView.setAdapter(familyAdapter);
     }
 
+    class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    userImage.setImageBitmap(user.getImageBitmap());
+                    userName.setText(user.getName());
+                    userEmail.setText(user.getEmail());
+                    break;
+            }
+        }
+    }
+
     public void drawerBack(View view) {
         drawer.closeDrawers();
+    }
+
+    public void toMine(View view) {
+        drawerBack(view);
+        Intent intent = new Intent(FamilyActivity.this, MineActivity.class);
+        startActivity(intent);
     }
 }

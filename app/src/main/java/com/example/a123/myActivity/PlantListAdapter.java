@@ -1,5 +1,6 @@
 package com.example.a123.myActivity;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +11,15 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a123.R;
-import com.example.a123.myClass.Genera;
+import com.example.a123.myClass.BitmapUtil;
+import com.example.a123.myClass.Plant;
+import com.example.a123.myService.LoginService;
 
 import java.util.List;
 
-public class GeneraAdapter extends RecyclerView.Adapter<GeneraAdapter.ViewHolder>  {
+public class PlantListAdapter extends RecyclerView.Adapter<PlantListAdapter.ViewHolder>  {
 
-    private List<Genera> mGeneraList;
+    private List<Plant> mPlantList;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
@@ -40,25 +43,26 @@ public class GeneraAdapter extends RecyclerView.Adapter<GeneraAdapter.ViewHolder
         }
     }
 
-    public GeneraAdapter(List<Genera> generaList) {
-        mGeneraList = generaList;
+    public PlantListAdapter(List<Plant> plantList) {
+        mPlantList = plantList;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_genera, parent, false);
+                .inflate(R.layout.item_plant_list, parent, false);
         //view.getBackground().setAlpha(204);
         final ViewHolder holder = new ViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
-        Genera genera = mGeneraList.get(position);
-        holder.name.setText(genera.getName());
-        holder.like.setImageResource(genera.isLike()?R.mipmap.like:R.mipmap.dislike);
-        holder.image.setImageResource(genera.getImageRes());
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        final Plant plant = mPlantList.get(position);
+        holder.name.setText(plant.getName());
+        holder.like.setImageResource(plant.isLike()?R.mipmap.like:R.mipmap.dislike);
+        //holder.image.setImageResource(plant.getImageRes());
+        holder.image.setImageBitmap(plant.getImageBitmap());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,24 +75,24 @@ public class GeneraAdapter extends RecyclerView.Adapter<GeneraAdapter.ViewHolder
 
     @Override
     public int getItemCount(){
-        return mGeneraList.size();
+        return mPlantList.size();
     }
 
     public void remove(int position) {
-        mGeneraList.remove(position);
+        mPlantList.remove(position);
         notifyItemRemoved(position);
-        notifyItemRangeChanged(position, mGeneraList.size() - position);
+        notifyItemRangeChanged(position, mPlantList.size() - position);
     }
 
-    public void add(int position, Genera genera) {
-        mGeneraList.add(position, genera);
+    public void add(int position, Plant plant) {
+        mPlantList.add(position, plant);
         notifyItemInserted(position);
-        notifyItemRangeChanged(position, mGeneraList.size() - position);
+        notifyItemRangeChanged(position, mPlantList.size() - position);
     }
 
-    public void change(int position, Genera genera) {
-        mGeneraList.remove(position);
-        mGeneraList.add(position, genera);
+    public void change(int position, Plant plant) {
+        mPlantList.remove(position);
+        mPlantList.add(position, plant);
         notifyItemChanged(position);
     }
 }

@@ -17,28 +17,34 @@
         android:layout_width="18dp"
         android:layout_height="18dp" />
 
-    <ImageView
-        android:id="@+id/imageView"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/nav_user_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:contentDescription="@string/nav_header_desc"
         android:layout_gravity="center_horizontal"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/d4" />
+        android:onClick="toMine"
+        android:src="@drawable/d4" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/nav_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:gravity="center"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="鱼一"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/nav_email"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="moqilanzhang@gmail.com" />
+        android:gravity="center_horizontal"
+        android:text="moqilanzhang@gmail.com"
+        android:maxLines="1"
+        android:ellipsize="end" />
 
 </LinearLayout>

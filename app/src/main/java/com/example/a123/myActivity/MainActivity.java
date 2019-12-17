@@ -15,14 +15,21 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.a123.R;
+import com.example.a123.myClass.Plant;
+import com.example.a123.myClass.Uri2PathUtil;
+import com.example.a123.myService.RecognizeService;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.io.File;
 
@@ -31,7 +38,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private Uri imageUri;
     private static final int TAKE_PHOTO = 1;
     private static final int CHOOSE_PHOTO = 2;
+
     private ImageView show;
+    private ImageView take;
+    private ImageView add;
+    private Button start;
+
+    private AVLoadingIndicatorView avi;
+
+    private MyHandler myHandler;
+
+    private String image_path = null;
+
+    private Plant plant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +59,18 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
         show = (ImageView) findViewById(R.id.show);
 
-        ImageView take = (ImageView) findViewById(R.id.take);
+        take = (ImageView) findViewById(R.id.take);
         take.setOnClickListener(this);
 
-        ImageView add = (ImageView) findViewById(R.id.add);
+        add = (ImageView) findViewById(R.id.add);
         add.setOnClickListener(this);
 
-        Button start = (Button) findViewById(R.id.start);
+        start = (Button) findViewById(R.id.start);
         start.setOnClickListener(this);
+
+        avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
+
+        myHandler = new MyHandler();
     }
 
     @Override
@@ -55,6 +78,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.take:
                 File outputImage = new File(getExternalCacheDir(), System.currentTimeMillis() + ".jpg");
+                image_path = outputImage.getPath();
+                Log.i("1", image_path);
                 try {
                     outputImage.createNewFile();
                 } catch (Exception e) {
@@ -79,6 +104,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
                 break;
             case R.id.start:
+                if(image_path == null)
+                    Toast.makeText(MainActivity.this, "请上传图片！", Toast.LENGTH_SHORT).show();
+                else{
+                    avi.setVisibility(View.VISIBLE);
+                    take.setVisibility(View.INVISIBLE);
+                    add.setVisibility(View.INVISIBLE);
+                    start.setClickable(false);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            plant = RecognizeService.recognizeByImage(image_path, MainActivity.this);
+                            if(plant.getName() != null)
+                                myHandler.obtainMessage(1).sendToTarget();
+                        }
+                    }).start();
+                }
                 break;
             default:
                 break;
@@ -178,8 +219,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         if(imagePath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             show.setImageBitmap(bitmap);
+            image_path = imagePath;
         } else {
             Toast.makeText(this, "获取图片失败！", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    class MyHandler extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    Toast.makeText(MainActivity.this, plant.getName(), Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            avi.setVisibility(View.GONE);
+            take.setVisibility(View.VISIBLE);
+            add.setVisibility(View.VISIBLE);
+            start.setClickable(true);
         }
     }
 }

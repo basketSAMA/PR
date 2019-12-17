@@ -24,10 +24,11 @@
     <string name="menu_recognize">植物识别</string>
     <string name="menu_search">植物搜索</string>
     <string name="menu_like">我的喜欢</string>
+    <string name="menu_guess">猜你喜欢</string>
     <string name="menu_tool">设置</string>
     <string name="menu_community">社区</string>
-    <string name="menu_contact">私信</string>
     <string name="menu_share">分享</string>
+    <string name="menu_exit">退出登陆</string>
 
     <string name="drawer_open">打开抽屉</string>
     <string name="drawer_close">关闭抽屉</string>
@@ -40,6 +41,10 @@
         冠管钟形，长约2 ．2厘米，外有短柔毛和腺毛，冠檐裂片5，略不等，短于花冠管3-4倍；
         雄蕊2强，2药室不等高，基部有白色小尖头；子房和花柱下部有短柔毛。
         蒴果长18-22毫米，上部具4粒种子，下部实心似细柄状。云南文山用作解热药。
+    </string>
+
+    <string name="mine_yy_space">
+        "     "为君子谦谦，温和有礼，有才而不骄，得志而不傲，居于谷而不卑。
     </string>
 
 </resources>

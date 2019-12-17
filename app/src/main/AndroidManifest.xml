@@ -5,18 +5,23 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- SD卡权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 照相机权限 -->
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 下载时不提示通知栏 -->
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NewFont">
-        <activity android:name=".myActivity.PlantActivity"></activity>
+        <activity android:name=".myActivity.LikeActivity"></activity>
+        <activity android:name=".myActivity.GuessActivity" />
+        <activity android:name=".myActivity.SettingActivity" />
+        <activity android:name=".myActivity.PlantActivity" />
         <activity android:name=".myActivity.SearchActivity" />
-        <activity android:name=".myActivity.GeneraActivity" />
+        <activity android:name=".myActivity.PlantListActivity" />
         <activity android:name=".myActivity.MineActivity" />
         <activity android:name=".myActivity.RegisterActivity" />
         <activity

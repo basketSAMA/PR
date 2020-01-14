@@ -19,11 +19,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.a123.R;
 import com.example.a123.myClass.Family;
+import com.example.a123.myClass.IPUtil;
 import com.example.a123.myClass.Plant;
 import com.example.a123.myClass.User;
-import com.example.a123.myService.LikeService;
+import com.example.a123.myService.FamilyService;
 import com.example.a123.myService.LoginService;
 import com.google.android.material.navigation.NavigationView;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +34,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class FamilyActivity extends BaseActivity {
 
-    public static List<Plant> userLikeList;
+    public static List<Plant> userLikeList = new ArrayList<>();
     public static User user;
 
-    private List<Family> familyList;
+    private List<Family> familyList = new ArrayList<>();
     private RecyclerView recyclerView;
     private FamilyAdapter familyAdapter;
 
@@ -49,6 +51,8 @@ public class FamilyActivity extends BaseActivity {
     private TextView userEmail;
 
     private MyHandler myHandler;
+
+    private AVLoadingIndicatorView avi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,15 +70,18 @@ public class FamilyActivity extends BaseActivity {
         userName = familyHeader.findViewById(R.id.nav_name);
         userEmail = familyHeader.findViewById(R.id.nav_email);
 
+        avi = (AVLoadingIndicatorView) findViewById(R.id.avi);
+
         myHandler = new MyHandler();
 
         recyclerView = findViewById(R.id.rv);
 
+        avi.setVisibility(View.VISIBLE);
         new Thread(new Runnable() {
             @Override
             public void run() {
+                familyList = FamilyService.getFamily(email, 10, FamilyActivity.this);
                 user = LoginService.getUserInfo(email, FamilyActivity.this);
-                userLikeList = LikeService.getLike(email, FamilyActivity.this);
                 myHandler.obtainMessage(1).sendToTarget();
             }
         }).start();
@@ -124,25 +131,25 @@ public class FamilyActivity extends BaseActivity {
     }
 
     private void init() {
-        familyList = new ArrayList<>();
-        familyList.add(new Family(getString(R.string.Acanthaceae), "Acanthaceae", R.drawable.acanthaceae));
-        familyList.add(new Family(getString(R.string.Compositae), "Compositae", R.drawable.compositae));
-        familyList.add(new Family(getString(R.string.Gramineae), "Gramineae", R.drawable.gramineae));
-        familyList.add(new Family(getString(R.string.Liliaceae), "Liliaceae", R.drawable.liliaceae));
-        familyList.add(new Family(getString(R.string.Malvaceae), "Malvaceae", R.drawable.malvaceae));
+//        familyList = new ArrayList<>();
+//        familyList.add(new Family(getString(R.string.Acanthaceae), "Acanthaceae", R.drawable.acanthaceae));
+//        familyList.add(new Family(getString(R.string.Compositae), "Compositae", R.drawable.compositae));
+//        familyList.add(new Family(getString(R.string.Gramineae), "Gramineae", R.drawable.gramineae));
+//        familyList.add(new Family(getString(R.string.Liliaceae), "Liliaceae", R.drawable.liliaceae));
+//        familyList.add(new Family(getString(R.string.Malvaceae), "Malvaceae", R.drawable.malvaceae));
 
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        familyAdapter = new FamilyAdapter(familyList);
-        familyAdapter.setOnItemClickListener(new FamilyAdapter.OnItemClickListener() {
-            @Override
-            public void onClick(int position) {
-                //点击事件
-                Intent intent = new Intent(FamilyActivity.this, PlantListActivity.class);
-                startActivity(intent);
-            }
-        });
-        recyclerView.setAdapter(familyAdapter);
+//        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+//        recyclerView.setLayoutManager(layoutManager);
+//        familyAdapter = new FamilyAdapter(familyList);
+//        familyAdapter.setOnItemClickListener(new FamilyAdapter.OnItemClickListener() {
+//            @Override
+//            public void onClick(int position) {
+//                //点击事件
+//                Intent intent = new Intent(FamilyActivity.this, PlantListActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        recyclerView.setAdapter(familyAdapter);
     }
 
     class MyHandler extends Handler {
@@ -154,6 +161,22 @@ public class FamilyActivity extends BaseActivity {
                     userImage.setImageBitmap(user.getImageBitmap());
                     userName.setText(user.getName());
                     userEmail.setText(user.getEmail());
+
+                    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+                    recyclerView.setLayoutManager(layoutManager);
+                    familyAdapter = new FamilyAdapter(familyList);
+                    familyAdapter.setOnItemClickListener(new FamilyAdapter.OnItemClickListener() {
+                        @Override
+                        public void onClick(int position) {
+                            //点击事件
+                            String nameC = familyList.get(position).getNameC();
+                            Intent intent = new Intent(FamilyActivity.this, PlantListActivity.class);
+                            intent.putExtra("nameC", nameC);
+                            startActivity(intent);
+                        }
+                    });
+                    recyclerView.setAdapter(familyAdapter);
+                    avi.setVisibility(View.INVISIBLE);
                     break;
             }
         }

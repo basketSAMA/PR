@@ -14,6 +14,7 @@ import com.example.a123.R;
 import com.example.a123.myClass.BitmapUtil;
 import com.example.a123.myClass.Plant;
 import com.example.a123.myService.LoginService;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.List;
 

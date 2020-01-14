@@ -156,7 +156,7 @@ public class LikeService {
     }
 
     public static boolean isLike(List<Plant> likeList, String pid) {
-        if(pid == null)
+        if(pid == null || pid.equals("-1"))
             return false;
         for(Plant plant: likeList) {
             if(plant.getPid().equals(pid))

@@ -14,9 +14,11 @@ public class Plant extends Family{
     private String detail;
 
     public Plant() {
+        this.pid = "-1";
     }
 
     public Plant(String name, boolean isLike, int imageRes) {
+        this.pid = "-1";
         this.name = name;
         this.isLike = isLike;
         this.imageRes = imageRes;

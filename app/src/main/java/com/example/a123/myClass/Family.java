@@ -1,13 +1,19 @@
 package com.example.a123.myClass;
 
+import android.graphics.Bitmap;
+import android.util.Log;
+
+import com.example.a123.myService.LoginService;
+
 public class Family {
-    private String nameC;
-    private String nameE;
+    private String nameC = "";
+    private String nameE = "";
     private int imageRes;
+    private Bitmap imageBitmap;
 
     public Family() {
-        this.nameC = null;
-        this.nameE = null;
+        this.nameC = "";
+        this.nameE = "";
         this.imageRes = -1;
     }
 
@@ -39,5 +45,18 @@ public class Family {
 
     public void setImageRes(int imageRes) {
         this.imageRes = imageRes;
+    }
+
+    public Bitmap getImageBitmap() {
+        return imageBitmap;
+    }
+
+    public void setImageBitmap(Bitmap imageBitmap) {
+        this.imageBitmap = imageBitmap;
+    }
+
+    public void setImageBitmap(final String imageUrl) throws Exception{
+        Log.i("imageUrl", imageUrl);
+        this.imageBitmap = BitmapUtil.compressImage(LoginService.getBitmap(imageUrl));
     }
 }

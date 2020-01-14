@@ -1,5 +1,6 @@
 package com.example.a123.myActivity;
 
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,7 @@ public class FamilyAdapter extends RecyclerView.Adapter<FamilyAdapter.ViewHolder
         Family family = mFamilyList.get(position);
         holder.nameC.setText(family.getNameC());
         holder.nameE.setText(family.getNameE());
-        holder.llBg.setBackgroundResource(family.getImageRes());
+        holder.llBg.setBackground(new BitmapDrawable(family.getImageBitmap()));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

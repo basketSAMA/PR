@@ -231,7 +231,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    Toast.makeText(MainActivity.this, plant.getName(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, plant.getName(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, PlantActivity.class);
+                    intent.putExtra("pid", plant.getPid());
+                    startActivity(intent);
                     break;
             }
             avi.setVisibility(View.GONE);
